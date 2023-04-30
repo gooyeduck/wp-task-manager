@@ -18,7 +18,7 @@ class WPTM_DB {
             description text NOT NULL,
             priority varchar(20) NOT NULL,
             due_date datetime NOT NULL,
-            completion_status tinyint(1) NOT NULL DEFAULT 0,
+            completion_status varchar(20) NOT NULL,
             PRIMARY KEY (id)
         ) $charset_collate;";
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
