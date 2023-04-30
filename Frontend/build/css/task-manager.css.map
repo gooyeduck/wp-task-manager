@@ -1,0 +1,1 @@
+{"version":3,"file":"css/task-manager.css","mappings":";;;AAAA;IACI,2BAA2B;AAC/B,C","sources":["webpack://task-manager/./index.css"],"sourcesContent":[".clas{\n    background-color: aliceblue;\n}"],"names":[],"sourceRoot":""}

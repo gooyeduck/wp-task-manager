@@ -1,0 +1,7 @@
+{
+  "apiVersion": 2,
+  "title": "Task Manager",
+  "name": "src/task-manager",
+  "category": "widgets",
+  "description": "Task Manager Block"
+}
