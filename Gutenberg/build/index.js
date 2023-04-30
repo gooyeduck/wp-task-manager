@@ -24286,15 +24286,15 @@ function Tables() {
     sx: {
       color: 'white'
     }
+  }, "Priority"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    sx: {
+      color: 'white'
+    }
   }, "Due Date"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_7__["default"], {
     sx: {
       color: 'white'
     }
   }, "Status"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    sx: {
-      color: 'white'
-    }
-  }, "Priority"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_7__["default"], {
     sx: {
       color: 'white'
     }
@@ -24320,6 +24320,16 @@ function Tables() {
     }
   }, row.description), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_7__["default"], {
     align: "left"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    style: {
+      color: 'white',
+      fontWeight: 'bold',
+      backgroundColor: row.priority === 'Low' ? '#4caf50' : row.priority === 'Medium' ? '#fdae20' : '#ef3d59',
+      borderRadius: 20,
+      padding: '5px 15px'
+    }
+  }, row.priority)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    align: "left"
   }, row.dueDate), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_7__["default"], {
     align: "left"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
@@ -24331,16 +24341,6 @@ function Tables() {
       padding: '5px 15px'
     }
   }, row.status)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    align: "left"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    style: {
-      color: 'white',
-      fontWeight: 'bold',
-      backgroundColor: row.priority === 'Low' ? '#4caf50' : row.priority === 'Medium' ? '#fdae20' : '#ef3d59',
-      borderRadius: 20,
-      padding: '5px 15px'
-    }
-  }, row.priority)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_TableCell__WEBPACK_IMPORTED_MODULE_7__["default"], {
     align: "left"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], {
     "aria-label": "edit"

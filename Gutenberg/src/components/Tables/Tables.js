@@ -56,9 +56,9 @@ export default function Tables() {
           <TableRow>
             <TableCell sx={{ color: 'white' }}>Task</TableCell>
             <TableCell sx={{ color: 'white' }}>Task Description</TableCell>
+            <TableCell sx={{ color: 'white' }}>Priority</TableCell>
             <TableCell sx={{ color: 'white' }}>Due Date</TableCell>
             <TableCell sx={{ color: 'white' }}>Status</TableCell>
-            <TableCell sx={{ color: 'white' }}>Priority</TableCell>
             <TableCell sx={{ color: 'white' }}>Action</TableCell>
           </TableRow>
         </TableHead>
@@ -88,7 +88,24 @@ export default function Tables() {
               >
                 {row.description}
               </TableCell>
-
+              <TableCell align="left">
+                <span
+                  style={{
+                    color: 'white',
+                    fontWeight: 'bold',
+                    backgroundColor:
+                      row.priority === 'Low'
+                        ? '#4caf50'
+                        : row.priority === 'Medium'
+                        ? '#fdae20'
+                        : '#ef3d59',
+                    borderRadius: 20,
+                    padding: '5px 15px',
+                  }}
+                >
+                  {row.priority}
+                </span>
+              </TableCell>
               <TableCell align="left">{row.dueDate}</TableCell>
 
               <TableCell align="left">
@@ -103,25 +120,6 @@ export default function Tables() {
                   }}
                 >
                   {row.status}
-                </span>
-              </TableCell>
-
-              <TableCell align="left">
-                <span
-                  style={{
-                    color:'white',
-                    fontWeight: 'bold',
-                    backgroundColor:
-                      row.priority === 'Low'
-                        ? '#4caf50'
-                        : row.priority === 'Medium'
-                        ? '#fdae20'
-                        : '#ef3d59',
-                    borderRadius: 20,
-                    padding: '5px 15px',
-                  }}
-                >
-                  {row.priority}
                 </span>
               </TableCell>
 

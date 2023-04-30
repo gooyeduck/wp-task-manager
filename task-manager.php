@@ -20,8 +20,15 @@
  * Prefix: WPTM
  */
 
+ require_once('./database/wptm-db.php');
 class WPTM {
+    private $db;
+
     public function __construct() {
+        $this->db = new WPTM_DB();
+        register_activation_hook( __FILE__, array( $this->db, 'wptm_create_db' ) );
+        register_uninstall_hook( __FILE__, array( $this->db, 'wptm_delete_db' ) );
+
         $this->defineConstants();
         $this->requireFiles();
         $this->loadClasses();
