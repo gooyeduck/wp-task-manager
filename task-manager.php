@@ -20,7 +20,6 @@
  * Prefix: WPTM
  */
 
-
 class WPTM {
     private $db;
 
@@ -29,20 +28,20 @@ class WPTM {
         $this->requireFiles();
         $this->loadClasses();
 
-        register_activation_hook( __FILE__, array( $this->db, 'wptm_create_db' ) );
-        register_uninstall_hook( __FILE__, array( $this->db, 'wptm_delete_db' ) );
-
+        register_activation_hook( __FILE__, [$this->db, 'wptm_create_db'] );
     }
 
     public function requireFiles() {
+        require API_PATH . 'TMApi.php';
         require GUTENBERG_PATH . 'TMBlock.php';
         require_once DATABASE_PATH . 'wptm-db.php';
     }
 
     public function loadClasses() {
+        new TMApi();
         $this->db = new WPTM_DB();
         new TMBlock();
-        
+
     }
 
     public function defineConstants() {

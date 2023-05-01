@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
+import TableContext from '../../Context/TableContext';
+import {dateFormat} from '../../../library/stringUtils'
+import { useContext } from 'react';
 import {
   Box,
   Button,
@@ -15,44 +18,11 @@ import {
   MenuItem,
 } from '@mui/material';
 
-function createData(id, task, description, dueDate, status, priority) {
-  return { id, task, description, dueDate, status, priority };
-}
-
 export default function AddTask() {
-  const [task, setTask] = useState('');
-  const [description, setDescription] = useState('');
-  const [dueDate, setDueDate] = useState('');
-  const [status, setStatus] = useState('in progress');
-  const [priority, setPriority] = useState('low');
-
-  const handleTaskChange = (event) => {
-    setTask(event.target.value);
-  };
-
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
-  };
-
-  const handleDueDateChange = (event) => {
-    setDueDate(event.target.value);
-  };
-
-  const handleStatusChange = (event) => {
-    setStatus(event.target.value);
-  };
-
-  const handlePriorityChange = (event) => {
-    setPriority(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Add form data to table
-  };
+  const { open, task, description, status, dueDate, priority, handleTaskChange, handleDescriptionChange, handleDueDateChange, handleStatusChange, handlePriorityChange, handleSubmit } = useContext(TableContext);
 
   return (
-    <Box sx={{ maxWidth: 600, margin: 'auto',}}>
+    <Box sx={{ maxWidth: 600, margin: 'auto'}}>
       <Paper sx={{ padding: 4 }}>
         <Grid container spacing={0.5}>
           <Grid item xs={12}>
@@ -65,7 +35,7 @@ export default function AddTask() {
               label="Task"
               variant="standard"
               value={task}
-              onChange={handleTaskChange}
+              onChange={(event) => handleTaskChange(event)}
             />
           </Grid>
           <Grid item xs={12}>
@@ -77,7 +47,7 @@ export default function AddTask() {
               label="Description"
               variant="standard"
               value={description}
-              onChange={handleDescriptionChange}
+              onChange={(event) => handleDescriptionChange(event)}
             />
           </Grid>
           <Grid item xs={6}>
@@ -88,13 +58,13 @@ export default function AddTask() {
               label="Due Date"
               variant="standard"
               value={dueDate}
-              onChange={handleDueDateChange}
+              onChange={(event) => handleDueDateChange(event)}
             />
           </Grid>
           <Grid item xs={12}>
             <FormControl component="fieldset" sx={{ marginTop: 1 }}>
               <FormLabel>Status</FormLabel>
-              <RadioGroup row aria-label="status" name="status" value={status} onChange={handleStatusChange}>
+              <RadioGroup row aria-label="status" name="status" value={status} onChange={(event) => handleStatusChange(event)}>
                 <FormControlLabel value="in progress" control={<Radio />} label="In Progress" />
                 <FormControlLabel value="completed" control={<Radio />} label="Completed" />
               </RadioGroup>
@@ -103,7 +73,7 @@ export default function AddTask() {
           <Grid item xs={3}>
             <FormControl required variant="standard" fullWidth sx={{ marginTop: 1 }}>
               <FormLabel>Priority</FormLabel>
-              <Select value={priority} onChange={handlePriorityChange} label="Priority">
+              <Select value={priority} onChange={(event) => handlePriorityChange(event)} label="Priority">
                 <MenuItem value="low">Low</MenuItem>
                 <MenuItem value="medium">Medium</MenuItem>
                 <MenuItem value="high">High</MenuItem>

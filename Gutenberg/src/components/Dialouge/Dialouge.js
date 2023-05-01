@@ -10,6 +10,8 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import AddTask from '../../pages/AddTask/AddTask';
+import TableContext from '../../Context/TableContext';
+import { useContext } from 'react';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -50,20 +52,13 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function Dialouge() {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const { open, handleClickOpen, handleClose } = useContext(TableContext);
 
   return (
     <div>
-      <Button onClick={handleClickOpen}>Add Task</Button>
+      <Button onClick={() => handleClickOpen()}>Add Task</Button>
       <BootstrapDialog
-        onClose={handleClose}
+        onClose={() => handleClose()}
         aria-labelledby="customized-dialog-title"
         open={open}
       >
