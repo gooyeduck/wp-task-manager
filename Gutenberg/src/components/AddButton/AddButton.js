@@ -51,20 +51,21 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function Dialouge() {
-  const { open, handleClickOpen, handleClose } = useContext(TableContext);
+export default function AddButton() {
+  const { fullstate, dispatch } = useContext(TableContext);
+  const { modalState } = fullstate;
 
   return (
     <div>
-      <Button onClick={() => handleClickOpen()}>Add Task</Button>
+      <Button onClick={() => dispatch({actionType:'setModalState', modalState:true})}>Add Task</Button>
       <BootstrapDialog
-        onClose={() => handleClose()}
+        onClose={() => dispatch({actionType:'setModalState', modalState:false})}
         aria-labelledby="customized-dialog-title"
-        open={open}
+        open={modalState}
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
-          onClose={handleClose}
+          onClose={() => dispatch({actionType:'setModalState', modalState:false})}
         >
           Add Task
         </BootstrapDialogTitle>

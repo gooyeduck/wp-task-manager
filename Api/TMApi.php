@@ -43,11 +43,11 @@ class TMApi {
     public function create_task_api( $request ) {
         global $wpdb;
 
-        $task_name     = $request->get_param( 'task_name' );
-        $task_desc     = $request->get_param( 'task_desc' );
-        $task_priority = $request->get_param( 'task_priority' );
-        $task_due_date = $request->get_param( 'task_due_date' );
-        $task_status   = $request->get_param( 'task_status' );
+        $task_name     = $request->get_param( 'task' );
+        $task_desc     = $request->get_param( 'description' );
+        $task_priority = $request->get_param( 'priority' );
+        $task_due_date = $request->get_param( 'dueDate' );
+        $task_status   = $request->get_param( 'status' );
 
         try {
             if ( empty( $task_name ) ) {
@@ -104,6 +104,7 @@ class TMApi {
             return false;
         }
     }
+
 
     public function show_tasks_list( $request ) {
         global $wpdb;

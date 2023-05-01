@@ -23691,38 +23691,20 @@ function getFormattedDate(inputDate) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
-/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1__);
+
 
 const Create = dataObject => {
-  return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
+  return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
     path: '/tm/v1/tasks',
     method: 'POST',
     data: dataObject
   });
 };
 /* harmony default export */ __webpack_exports__["default"] = (Create);
-
-/***/ }),
-
-/***/ "./src/Api/Delete.js":
-/*!***************************!*\
-  !*** ./src/Api/Delete.js ***!
-  \***************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
-/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__);
-
-const Delete = taskId => {
-  return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
-    path: `/tm/v1/delete-task/${taskId}`,
-    method: 'POST'
-  });
-};
-/* harmony default export */ __webpack_exports__["default"] = (Delete);
 
 /***/ }),
 
@@ -23789,13 +23771,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_Tables_Tables__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Tables/Tables */ "./src/components/Tables/Tables.js");
-/* harmony import */ var _components_Dialouge_Dialouge__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Dialouge/Dialouge */ "./src/components/Dialouge/Dialouge.js");
-/* harmony import */ var _Context_TableContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Context/TableContext */ "./src/Context/TableContext.js");
-/* harmony import */ var _Api_TaskList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Api/TaskList */ "./src/Api/TaskList.js");
-/* harmony import */ var _Api_Create__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Api/Create */ "./src/Api/Create.js");
-/* harmony import */ var _Api_Delete__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../Api/Delete */ "./src/Api/Delete.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _Context_TableContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Context/TableContext */ "./src/Context/TableContext.js");
+/* harmony import */ var _Api_TaskList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Api/TaskList */ "./src/Api/TaskList.js");
+/* harmony import */ var _Api_Create__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Api/Create */ "./src/Api/Create.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _components_AddButton_AddButton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/AddButton/AddButton */ "./src/components/AddButton/AddButton.js");
 
 
 
@@ -23816,98 +23797,174 @@ const Edit = _ref => {
       padding: '0 !important;'
     }
   });
-  const [task, setTask] = (0,react__WEBPACK_IMPORTED_MODULE_8__.useState)('');
-  const [description, setDescription] = (0,react__WEBPACK_IMPORTED_MODULE_8__.useState)('');
-  const [dueDate, setDueDate] = (0,react__WEBPACK_IMPORTED_MODULE_8__.useState)('');
-  const [status, setStatus] = (0,react__WEBPACK_IMPORTED_MODULE_8__.useState)('');
-  const [priority, setPriority] = (0,react__WEBPACK_IMPORTED_MODULE_8__.useState)('');
-  const [open, setOpen] = (0,react__WEBPACK_IMPORTED_MODULE_8__.useState)(false);
-  const [elements, setElements] = (0,react__WEBPACK_IMPORTED_MODULE_8__.useState)([]);
-  const [lastFetched, setLastFetched] = (0,react__WEBPACK_IMPORTED_MODULE_8__.useState)(Date.now());
-  (0,react__WEBPACK_IMPORTED_MODULE_8__.useEffect)(() => {
-    (0,_Api_TaskList__WEBPACK_IMPORTED_MODULE_5__["default"])().then(result => {
-      setElements(result);
-    });
-  }, [lastFetched]);
-
-  //Click Handlers
-  function handleTaskChange(event) {
-    setTask(event.target.value);
-  }
-  function handleDescriptionChange(event) {
-    setDescription(event.target.value);
-  }
-  function handleDueDateChange(event) {
-    setDueDate(event.target.value);
-  }
-  function handleStatusChange(event) {
-    setStatus(event.target.value);
-  }
-  function handlePriorityChange(event) {
-    setPriority(event.target.value);
-  }
-  function handleSubmit() {
-    let dataObject = {
-      task_name: task,
-      task_desc: description,
-      task_priority: priority,
-      task_due_date: dueDate,
-      task_status: status
-    };
-    (0,_Api_Create__WEBPACK_IMPORTED_MODULE_6__["default"])(dataObject).then(res => {
-      if (res) {
-        setLastFetched(Date.now());
-      }
-    });
-  }
-  function handleDelete(id) {
-    (0,_Api_Delete__WEBPACK_IMPORTED_MODULE_7__["default"])(id).then(res => {
-      if (res) {
-        setLastFetched(Date.now());
-      }
-    });
-  }
-  function handleClickOpen() {
-    setOpen(true);
-  }
-  function handleClose() {
-    setOpen(false);
-  }
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Context_TableContext__WEBPACK_IMPORTED_MODULE_4__["default"].Provider, {
-    value: {
+  const initialState = {
+    taskState: {
+      task: '',
+      description: '',
+      dueDate: '',
+      status: '',
+      priority: ""
+    },
+    modalState: false,
+    elements: [],
+    lastFetched: Date.now()
+  };
+  const [fullstate, dispatch] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useReducer)(reducer, initialState);
+  const {
+    lastFetched
+  } = fullstate;
+  function reducer(state, action) {
+    const {
+      actionType,
       elements,
-      open,
+      modalState,
       task,
       description,
-      status,
       dueDate,
-      priority,
-      handleTaskChange,
-      handleDescriptionChange,
-      handleDueDateChange,
-      handleStatusChange,
-      handlePriorityChange,
-      handleClickOpen,
-      handleClose,
-      handleSubmit,
-      handleDelete
+      status,
+      priority
+    } = action;
+    if (actionType === 'setElements') {
+      return {
+        ...state,
+        elements
+      };
     }
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Dialouge_Dialouge__WEBPACK_IMPORTED_MODULE_3__["default"], null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Tables_Tables__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
+    if (actionType === 'setModalState') {
+      return {
+        ...state,
+        modalState
+      };
+    }
+    if (actionType === 'setTaskName') {
+      var {
+        taskState
+      } = state;
+      var taskState = {
+        ...taskState,
+        task
+      };
+      return {
+        ...state,
+        taskState
+      };
+    }
+    if (actionType === 'setDescription') {
+      var {
+        taskState
+      } = state;
+      var taskState = {
+        ...taskState,
+        description
+      };
+      return {
+        ...state,
+        taskState
+      };
+    }
+    if (actionType === 'setDueDate') {
+      var {
+        taskState
+      } = state;
+      var taskState = {
+        ...taskState,
+        dueDate
+      };
+      return {
+        ...state,
+        taskState
+      };
+    }
+    if (actionType === 'setStatus') {
+      var {
+        taskState
+      } = state;
+      var taskState = {
+        ...taskState,
+        status
+      };
+      return {
+        ...state,
+        taskState
+      };
+    }
+    if (actionType === 'setPriority') {
+      var {
+        taskState
+      } = state;
+      var taskState = {
+        ...taskState,
+        priority
+      };
+      return {
+        ...state,
+        taskState
+      };
+    }
+    if (actionType === 'submitData') {
+      let {
+        taskState
+      } = state;
+      console.log(state);
+      (0,_Api_Create__WEBPACK_IMPORTED_MODULE_5__["default"])(taskState).then(res => {
+        if (res) {
+          return state;
+        } else {
+          return state;
+        }
+      });
+      return {
+        ...state,
+        lastFetched: Date.now()
+      };
+    }
+  }
+  (0,react__WEBPACK_IMPORTED_MODULE_6__.useEffect)(() => {
+    setTimeout(() => {
+      (0,_Api_TaskList__WEBPACK_IMPORTED_MODULE_4__["default"])().then(result => {
+        console.log(result);
+        dispatch({
+          actionType: 'setElements',
+          elements: result
+        });
+      });
+    }, 100);
+  }, [lastFetched]);
+  const {
+    taskState
+  } = fullstate;
+
+  // function handleSubmit() {
+  //   let dataObject = {
+  //     task_name:task,
+  //     task_desc:description,
+  //     task_priority:priority,
+  //     task_due_date:dueDate,
+  //     task_status:status
+  //   }
+  // }
+
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Context_TableContext__WEBPACK_IMPORTED_MODULE_3__["default"].Provider, {
+    value: {
+      fullstate,
+      dispatch
+    }
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_AddButton_AddButton__WEBPACK_IMPORTED_MODULE_7__["default"], null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Tables_Tables__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
 };
 /* harmony default export */ __webpack_exports__["default"] = (Edit);
 
 /***/ }),
 
-/***/ "./src/components/Dialouge/Dialouge.js":
-/*!*********************************************!*\
-  !*** ./src/components/Dialouge/Dialouge.js ***!
-  \*********************************************/
+/***/ "./src/components/AddButton/AddButton.js":
+/*!***********************************************!*\
+  !*** ./src/components/AddButton/AddButton.js ***!
+  \***********************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ Dialouge; }
+/* harmony export */   "default": function() { return /* binding */ AddButton; }
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
@@ -23980,21 +24037,32 @@ BootstrapDialogTitle.propTypes = {
   children: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().node),
   onClose: (prop_types__WEBPACK_IMPORTED_MODULE_10___default().func.isRequired)
 };
-function Dialouge() {
+function AddButton() {
   const {
-    open,
-    handleClickOpen,
-    handleClose
+    fullstate,
+    dispatch
   } = (0,react__WEBPACK_IMPORTED_MODULE_2__.useContext)(_Context_TableContext__WEBPACK_IMPORTED_MODULE_4__["default"]);
+  const {
+    modalState
+  } = fullstate;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    onClick: () => handleClickOpen()
+    onClick: () => dispatch({
+      actionType: 'setModalState',
+      modalState: true
+    })
   }, "Add Task"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(BootstrapDialog, {
-    onClose: () => handleClose(),
+    onClose: () => dispatch({
+      actionType: 'setModalState',
+      modalState: false
+    }),
     "aria-labelledby": "customized-dialog-title",
-    open: open
+    open: modalState
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(BootstrapDialogTitle, {
     id: "customized-dialog-title",
-    onClose: handleClose
+    onClose: () => dispatch({
+      actionType: 'setModalState',
+      modalState: false
+    })
   }, "Add Task"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_mui_material_DialogContent__WEBPACK_IMPORTED_MODULE_12__["default"], {
     dividers: true
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_pages_AddTask_AddTask__WEBPACK_IMPORTED_MODULE_3__["default"], null))));
@@ -24045,11 +24113,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Tables() {
-  let {
-    elements,
-    handleDelete
+  const {
+    fullstate
   } = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_Context_TableContext__WEBPACK_IMPORTED_MODULE_2__["default"]);
-  ;
+  const {
+    elements
+  } = fullstate;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_TableContainer__WEBPACK_IMPORTED_MODULE_4__["default"], {
     component: _mui_material_Paper__WEBPACK_IMPORTED_MODULE_5__["default"]
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Table__WEBPACK_IMPORTED_MODULE_6__["default"], {
@@ -24176,19 +24245,16 @@ __webpack_require__.r(__webpack_exports__);
 
 function AddTask() {
   const {
-    open,
+    fullstate,
+    dispatch
+  } = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_Context_TableContext__WEBPACK_IMPORTED_MODULE_2__["default"]);
+  const {
     task,
     description,
-    status,
     dueDate,
     priority,
-    handleTaskChange,
-    handleDescriptionChange,
-    handleDueDateChange,
-    handleStatusChange,
-    handlePriorityChange,
-    handleSubmit
-  } = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_Context_TableContext__WEBPACK_IMPORTED_MODULE_2__["default"]);
+    status
+  } = fullstate;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
     sx: {
       maxWidth: 600,
@@ -24215,7 +24281,10 @@ function AddTask() {
     label: "Task",
     variant: "standard",
     value: task,
-    onChange: event => handleTaskChange(event)
+    onChange: event => dispatch({
+      actionType: 'setTaskName',
+      task: event.target.value
+    })
   })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
     item: true,
     xs: 12
@@ -24227,7 +24296,10 @@ function AddTask() {
     label: "Description",
     variant: "standard",
     value: description,
-    onChange: event => handleDescriptionChange(event)
+    onChange: event => dispatch({
+      actionType: 'setDescription',
+      description: event.target.value
+    })
   })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
     item: true,
     xs: 6
@@ -24238,7 +24310,10 @@ function AddTask() {
     label: "Due Date",
     variant: "standard",
     value: dueDate,
-    onChange: event => handleDueDateChange(event)
+    onChange: event => dispatch({
+      actionType: 'setDueDate',
+      dueDate: event.target.value
+    })
   })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], {
     item: true,
     xs: 12
@@ -24252,7 +24327,10 @@ function AddTask() {
     "aria-label": "status",
     name: "status",
     value: status,
-    onChange: event => handleStatusChange(event)
+    onChange: event => dispatch({
+      actionType: 'setStatus',
+      status: event.target.value
+    })
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material__WEBPACK_IMPORTED_MODULE_11__["default"], {
     value: "in progress",
     control: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material__WEBPACK_IMPORTED_MODULE_12__["default"], null),
@@ -24273,7 +24351,10 @@ function AddTask() {
     }
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material__WEBPACK_IMPORTED_MODULE_9__["default"], null, "Priority"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material__WEBPACK_IMPORTED_MODULE_13__["default"], {
     value: priority,
-    onChange: event => handlePriorityChange(event),
+    onChange: event => dispatch({
+      actionType: 'setPriority',
+      priority: event.target.value
+    }),
     label: "Priority"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material__WEBPACK_IMPORTED_MODULE_14__["default"], {
     value: "low"
@@ -24292,7 +24373,9 @@ function AddTask() {
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material__WEBPACK_IMPORTED_MODULE_15__["default"], {
     variant: "contained",
     color: "primary",
-    onClick: handleSubmit
+    onClick: () => dispatch({
+      actionType: 'submitData'
+    })
   }, "Add"))))));
 }
 

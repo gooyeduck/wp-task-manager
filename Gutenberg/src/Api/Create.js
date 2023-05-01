@@ -1,3 +1,4 @@
+import React from "react";
 import apiFetch from '@wordpress/api-fetch';
 
 const Create = ( dataObject ) => {
