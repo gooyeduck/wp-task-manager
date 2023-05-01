@@ -28,6 +28,16 @@ class TMApi {
                 'callback'            => [$this, 'show_tasks_list']
             ]
         );
+
+        register_rest_route(
+            $this->namespace,
+            '/delete-task/(?P<id>\d+)',
+            [
+                'methods'             => 'POST',
+                'permission_callback' => [$this, 'check_permission'],
+                'callback'            => [$this, 'delete_task']           
+            ]
+        );
     }
 
     public function create_task_api( $request ) {
@@ -75,6 +85,23 @@ class TMApi {
             }
         } catch ( Exception $e ) {
             return $e->getMessage();
+        }
+    }
+
+    public function delete_task( $request ) {
+        global $wpdb;
+
+        $task_id = $request->get_param( 'id' );
+
+        $status = $wpdb->delete(
+            $wpdb->prefix . 'task_manager_tasks',
+            ['id' => $task_id]
+        );
+
+        if ( $status != false ) {
+            return true;
+        } else {
+            return false;
         }
     }
 

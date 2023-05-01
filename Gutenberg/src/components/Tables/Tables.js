@@ -11,10 +11,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TableContext from '../../Context/TableContext';
 import { useContext } from 'react';
-import { titleCase } from '../../../library/stringUtils';
+import { titleCase, getFormattedDate } from '../../../library/stringUtils';
 
 export default function Tables() {
-  let { elements } = useContext(TableContext);
+  let { elements, handleDelete } = useContext(TableContext);;
 
   return (
     <TableContainer component={Paper}>
@@ -74,7 +74,9 @@ export default function Tables() {
                     {titleCase(element.priority)}
                   </span>
                 </TableCell>
-                <TableCell align="left">{element.due_date}</TableCell>
+                <TableCell align="left">
+                  {getFormattedDate(element.due_date)}
+                </TableCell>
 
                 <TableCell align="left">
                   <span
@@ -82,7 +84,9 @@ export default function Tables() {
                       color: 'white',
                       fontWeight: 'bold',
                       backgroundColor:
-                      element.completion_status === 'completed' ? '#4caf50' : '#5e0087',
+                        element.completion_status === 'completed'
+                          ? '#4caf50'
+                          : '#5e0087',
                       borderRadius: 20,
                       padding: '5px 15px',
                     }}
@@ -92,10 +96,12 @@ export default function Tables() {
                 </TableCell>
 
                 <TableCell align="left">
-                  <IconButton aria-label="edit">
+                  <IconButton
+                    aria-label="edit"
+                  >
                     <EditIcon />
                   </IconButton>
-                  <IconButton aria-label="delete">
+                  <IconButton aria-label="delete" onClick={() => handleDelete(element.id)}>
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>

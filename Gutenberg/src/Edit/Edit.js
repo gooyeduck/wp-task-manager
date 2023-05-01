@@ -4,8 +4,8 @@ import Dialouge from '../components/Dialouge/Dialouge';
 import TableContext from '../Context/TableContext';
 import TaskList from '../Api/TaskList';
 import Create from '../Api/Create';
+import Delete from '../Api/Delete';
 import { useEffect, useState } from 'react';
-import { dateFormat } from '../../library/stringUtils';
 
 const Edit = ({ isSelected }) => {
   const blockProps = useBlockProps({
@@ -15,21 +15,20 @@ const Edit = ({ isSelected }) => {
       padding: '0 !important;',
     },
   });
-  
-  const [task, setTask]               = useState('');
+
+  const [task, setTask] = useState('');
   const [description, setDescription] = useState('');
-  const [dueDate, setDueDate]         = useState('');
-  const [status, setStatus]           = useState('');
-  const [priority, setPriority]       = useState('');
-  const [open, setOpen]               = useState(false);
-  const [elements, setElements]               = useState([]);
+  const [dueDate, setDueDate] = useState('');
+  const [status, setStatus] = useState('');
+  const [priority, setPriority] = useState('');
+  const [open, setOpen] = useState(false);
+  const [elements, setElements] = useState([]);
   const [lastFetched, setLastFetched] = useState(Date.now());
 
   useEffect(() => {
-      TaskList().
-      then((result) => {
-          setElements(result);
-      });
+    TaskList().then((result) => {
+      setElements(result);
+    });
   }, [lastFetched]);
 
   //Click Handlers
@@ -43,7 +42,6 @@ const Edit = ({ isSelected }) => {
 
   function handleDueDateChange(event) {
     setDueDate(event.target.value);
-    console.log(event.target.value);
   }
 
   function handleStatusChange(event) {
@@ -56,15 +54,22 @@ const Edit = ({ isSelected }) => {
 
   function handleSubmit() {
     let dataObject = {
-      task_name:task,
-      task_desc:description,
-      task_priority:priority,
-      task_due_date:dueDate,
-      task_status:status
-    }
-    Create(dataObject).
-    then((res) => {
-      if(res) {
+      task_name: task,
+      task_desc: description,
+      task_priority: priority,
+      task_due_date: dueDate,
+      task_status: status,
+    };
+    Create(dataObject).then((res) => {
+      if (res) {
+        setLastFetched(Date.now());
+      }
+    });
+  }
+
+  function handleDelete(id) {
+    Delete(id).then((res) => {
+      if (res) {
         setLastFetched(Date.now());
       }
     });
@@ -80,8 +85,27 @@ const Edit = ({ isSelected }) => {
 
   return (
     <div {...blockProps}>
-      <TableContext.Provider value={{elements, open, task, description, status, dueDate, priority, handleTaskChange, handleDescriptionChange, handleDueDateChange, handleStatusChange, handlePriorityChange, handleClickOpen, handleClose, handleSubmit}}>
-        <Dialouge/>
+      <TableContext.Provider
+        value={{
+          elements,
+          open,
+          task,
+          description,
+          status,
+          dueDate,
+          priority,
+          handleTaskChange,
+          handleDescriptionChange,
+          handleDueDateChange,
+          handleStatusChange,
+          handlePriorityChange,
+          handleClickOpen,
+          handleClose,
+          handleSubmit,
+          handleDelete,
+        }}
+      >
+        <Dialouge />
         <Tables />
       </TableContext.Provider>
     </div>
