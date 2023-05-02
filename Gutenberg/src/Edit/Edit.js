@@ -3,6 +3,7 @@ import Tables from '../components/Tables/Tables';
 import TableContext from '../Context/TableContext';
 import TaskList from '../Api/TaskList';
 import Create from '../Api/Create';
+import Delete from '../Api/Delete';
 import { useEffect, useState } from 'react';
 import { useReducer } from 'react';
 import AddButton from '../components/AddButton/AddButton';
@@ -18,11 +19,12 @@ const Edit = ({ isSelected }) => {
 
   const initialState = {
     taskState: {
+      id:'',
       task: '',
       description: '',
       dueDate: '',
       status: '',
-      priority:"",
+      priority: '',
     },
     modalState: false,
     elements: [],
@@ -94,6 +96,20 @@ const Edit = ({ isSelected }) => {
       });
       return { ...state, lastFetched: Date.now() };
     }
+
+    if (actionType === 'deleteData') {
+      Delete(taskState.id).then((res) => {
+        console.log(taskState);
+        if (res) {
+          return { ...state, lastFetched: Date.now() };
+        } else {
+          return state;
+        }
+      });
+      return state;
+    }
+
+    return state;
   }
 
   useEffect(() => {
@@ -105,21 +121,15 @@ const Edit = ({ isSelected }) => {
     }, 100);
   }, [lastFetched]);
 
-  const { taskState } = fullstate;
+  const handleDelete = (id) => {
+    dispatch({ actionType: 'deleteData', taskState: { id } });
+  };
 
-  // function handleSubmit() {
-  //   let dataObject = {
-  //     task_name:task,
-  //     task_desc:description,
-  //     task_priority:priority,
-  //     task_due_date:dueDate,
-  //     task_status:status
-  //   }
-  // }
+  const { taskState } = fullstate;
 
   return (
     <div {...blockProps}>
-      <TableContext.Provider value={{ fullstate, dispatch }}>
+      <TableContext.Provider value={{ fullstate, dispatch, handleDelete }}>
         <AddButton />
         <Tables />
       </TableContext.Provider>

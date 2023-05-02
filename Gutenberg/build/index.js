@@ -23708,6 +23708,27 @@ const Create = dataObject => {
 
 /***/ }),
 
+/***/ "./src/Api/Delete.js":
+/*!***************************!*\
+  !*** ./src/Api/Delete.js ***!
+  \***************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__);
+
+const Delete = taskId => {
+  return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
+    path: `/tm/v1/delete-task/${taskId}`,
+    method: 'POST'
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (Delete);
+
+/***/ }),
+
 /***/ "./src/Api/TaskList.js":
 /*!*****************************!*\
   !*** ./src/Api/TaskList.js ***!
@@ -23774,9 +23795,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Context_TableContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Context/TableContext */ "./src/Context/TableContext.js");
 /* harmony import */ var _Api_TaskList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Api/TaskList */ "./src/Api/TaskList.js");
 /* harmony import */ var _Api_Create__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Api/Create */ "./src/Api/Create.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _components_AddButton_AddButton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/AddButton/AddButton */ "./src/components/AddButton/AddButton.js");
+/* harmony import */ var _Api_Delete__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Api/Delete */ "./src/Api/Delete.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _components_AddButton_AddButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/AddButton/AddButton */ "./src/components/AddButton/AddButton.js");
+
 
 
 
@@ -23799,17 +23822,18 @@ const Edit = _ref => {
   });
   const initialState = {
     taskState: {
+      id: '',
       task: '',
       description: '',
       dueDate: '',
       status: '',
-      priority: ""
+      priority: ''
     },
     modalState: false,
     elements: [],
     lastFetched: Date.now()
   };
-  const [fullstate, dispatch] = (0,react__WEBPACK_IMPORTED_MODULE_6__.useReducer)(reducer, initialState);
+  const [fullstate, dispatch] = (0,react__WEBPACK_IMPORTED_MODULE_7__.useReducer)(reducer, initialState);
   const {
     lastFetched
   } = fullstate;
@@ -23918,8 +23942,23 @@ const Edit = _ref => {
         lastFetched: Date.now()
       };
     }
+    if (actionType === 'deleteData') {
+      (0,_Api_Delete__WEBPACK_IMPORTED_MODULE_6__["default"])(taskState.id).then(res => {
+        console.log(taskState);
+        if (res) {
+          return {
+            ...state,
+            lastFetched: Date.now()
+          };
+        } else {
+          return state;
+        }
+      });
+      return state;
+    }
+    return state;
   }
-  (0,react__WEBPACK_IMPORTED_MODULE_6__.useEffect)(() => {
+  (0,react__WEBPACK_IMPORTED_MODULE_7__.useEffect)(() => {
     setTimeout(() => {
       (0,_Api_TaskList__WEBPACK_IMPORTED_MODULE_4__["default"])().then(result => {
         console.log(result);
@@ -23930,26 +23969,24 @@ const Edit = _ref => {
       });
     }, 100);
   }, [lastFetched]);
+  const handleDelete = id => {
+    dispatch({
+      actionType: 'deleteData',
+      taskState: {
+        id
+      }
+    });
+  };
   const {
     taskState
   } = fullstate;
-
-  // function handleSubmit() {
-  //   let dataObject = {
-  //     task_name:task,
-  //     task_desc:description,
-  //     task_priority:priority,
-  //     task_due_date:dueDate,
-  //     task_status:status
-  //   }
-  // }
-
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Context_TableContext__WEBPACK_IMPORTED_MODULE_3__["default"].Provider, {
     value: {
       fullstate,
-      dispatch
+      dispatch,
+      handleDelete
     }
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_AddButton_AddButton__WEBPACK_IMPORTED_MODULE_7__["default"], null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Tables_Tables__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_AddButton_AddButton__WEBPACK_IMPORTED_MODULE_8__["default"], null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Tables_Tables__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
 };
 /* harmony default export */ __webpack_exports__["default"] = (Edit);
 
@@ -24114,7 +24151,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function Tables() {
   const {
-    fullstate
+    fullstate,
+    handleDelete
   } = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_Context_TableContext__WEBPACK_IMPORTED_MODULE_2__["default"]);
   const {
     elements

@@ -14,7 +14,7 @@ import { useContext } from 'react';
 import { titleCase, getFormattedDate } from '../../../library/stringUtils';
 
 export default function Tables() {
-  const { fullstate } = useContext(TableContext);
+  const { fullstate , handleDelete} = useContext(TableContext);
   const { elements }      = fullstate;
 
   return (
