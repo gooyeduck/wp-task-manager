@@ -12,10 +12,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import TableContext from '../../Context/TableContext';
 import { useContext } from 'react';
 import { titleCase, getFormattedDate } from '../../../library/stringUtils';
+import EditButton from '../EditButton/EditButton';
 
 export default function Tables() {
-  const { fullstate , handleDelete} = useContext(TableContext);
-  const { elements }      = fullstate;
+  const { fullstate, handleDelete } = useContext(TableContext);
+  const { elements } = fullstate;
 
   return (
     <TableContainer component={Paper}>
@@ -97,12 +98,11 @@ export default function Tables() {
                 </TableCell>
 
                 <TableCell align="left">
+                    <EditButton task_id={element.id}/>
                   <IconButton
-                    aria-label="edit"
+                    aria-label="delete"
+                    onClick={() => handleDelete(element.id)}
                   >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton aria-label="delete" onClick={() => handleDelete(element.id)}>
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>

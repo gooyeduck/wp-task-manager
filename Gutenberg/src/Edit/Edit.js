@@ -19,7 +19,6 @@ const Edit = ({ isSelected }) => {
 
   const initialState = {
     taskState: {
-      id:'',
       task: '',
       description: '',
       dueDate: '',
@@ -36,6 +35,9 @@ const Edit = ({ isSelected }) => {
 
   function reducer(state, action) {
     const {
+      taskId,
+      taskResetState,
+      taskIdUpdate,
       actionType,
       elements,
       modalState,
@@ -78,6 +80,11 @@ const Edit = ({ isSelected }) => {
       return { ...state, taskState };
     }
 
+    if (actionType === 'resetTaskState') {
+      let taskState = taskResetState;
+      return { ...state, taskState };
+    }
+
     if (actionType === 'setPriority') {
       var { taskState } = state;
       var taskState = { ...taskState, priority };
@@ -86,7 +93,6 @@ const Edit = ({ isSelected }) => {
 
     if (actionType === 'submitData') {
       let { taskState } = state;
-      console.log(state);
       Create(taskState).then((res) => {
         if (res) {
           return state;
@@ -97,16 +103,38 @@ const Edit = ({ isSelected }) => {
       return { ...state, lastFetched: Date.now() };
     }
 
+    if (actionType === 'updateData') {
+      let { id } = taskId;
+      console.log(id);
+      return state;
+    }
+
     if (actionType === 'deleteData') {
-      Delete(taskState.id).then((res) => {
-        console.log(taskState);
+      let { id } = taskId;
+      Delete(id).then((res) => {
         if (res) {
-          return { ...state, lastFetched: Date.now() };
+          return state;
         } else {
           return state;
         }
       });
-      return state;
+
+      return { ...state, lastFetched: Date.now() };
+    }
+
+    if (actionType === 'updateTaskState') {
+      let { elements } = state;
+      let { id,title, description, priority, due_date, completion_status } =
+        elements.find((element) => element.id == taskIdUpdate);
+      let taskState = {
+        id: id,
+        task: title,
+        description: description,
+        dueDate: due_date,
+        status: completion_status,
+        priority: priority,
+      };
+      return { ...state, taskState };
     }
 
     return state;
@@ -115,22 +143,21 @@ const Edit = ({ isSelected }) => {
   useEffect(() => {
     setTimeout(() => {
       TaskList().then((result) => {
-        console.log(result);
         dispatch({ actionType: 'setElements', elements: result });
       });
     }, 100);
   }, [lastFetched]);
 
   const handleDelete = (id) => {
-    dispatch({ actionType: 'deleteData', taskState: { id } });
+    dispatch({ actionType: 'deleteData', taskId: { id } });
   };
 
   const { taskState } = fullstate;
-
+  console.log(taskState);
   return (
     <div {...blockProps}>
       <TableContext.Provider value={{ fullstate, dispatch, handleDelete }}>
-        <AddButton />
+        {/* <AddButton /> */}
         <Tables />
       </TableContext.Provider>
     </div>

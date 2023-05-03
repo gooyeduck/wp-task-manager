@@ -5,11 +5,9 @@ import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
-import AddTask from '../../pages/AddTask/AddTask';
+import EditTask from '../../pages/EditTask.js/EditTask';
 import TableContext from '../../Context/TableContext';
 import { useContext } from 'react';
 
@@ -51,7 +49,7 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function AddButton() {
+export default function EditButton({ task_id }) {
   const { fullstate, dispatch } = useContext(TableContext);
   const { modalState } = fullstate;
 
@@ -60,19 +58,10 @@ export default function AddButton() {
       <Button
         onClick={() => {
           dispatch({ actionType: 'setModalState', modalState: true });
-          dispatch({
-            actionType: 'resetTaskState',
-            taskResetState: {
-              task: '',
-              description: '',
-              dueDate: '',
-              status: '',
-              priority: '',
-            },
-          });
+          dispatch({ actionType: 'updateTaskState', taskIdUpdate: task_id });
         }}
       >
-        Add Task
+        Edit
       </Button>
       <BootstrapDialog
         onClose={() =>
@@ -87,10 +76,10 @@ export default function AddButton() {
             dispatch({ actionType: 'setModalState', modalState: false })
           }
         >
-          Add Task
+          Edit Task
         </BootstrapDialogTitle>
         <DialogContent dividers>
-          <AddTask />
+          <EditTask />
         </DialogContent>
       </BootstrapDialog>
     </div>

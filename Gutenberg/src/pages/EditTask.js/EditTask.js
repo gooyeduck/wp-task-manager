@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+import TableContext from '../../Context/TableContext';
+import { useContext } from 'react';
 import {
   Box,
   Button,
@@ -14,49 +16,19 @@ import {
   Select,
   MenuItem,
 } from '@mui/material';
+import { getFormattedDate } from '../../../library/stringUtils';
 
-function createData(id, task, description, dueDate, status, priority) {
-  return { id, task, description, dueDate, status, priority };
-}
-
-export default function AddTask() {
-  const [task, setTask] = useState('');
-  const [description, setDescription] = useState('');
-  const [dueDate, setDueDate] = useState('');
-  const [status, setStatus] = useState('in progress');
-  const [priority, setPriority] = useState('low');
-
-  const handleTaskChange = (event) => {
-    setTask(event.target.value);
-  };
-
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
-  };
-
-  const handleDueDateChange = (event) => {
-    setDueDate(event.target.value);
-  };
-
-  const handleStatusChange = (event) => {
-    setStatus(event.target.value);
-  };
-
-  const handlePriorityChange = (event) => {
-    setPriority(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Add form data to table
-  };
+export default function EditTask({updateId}) {
+  const { fullstate, dispatch } = useContext(TableContext);
+  const { taskState } = fullstate;
+  const { id,task, description, dueDate, priority, status } = taskState;
 
   return (
-    <Box sx={{ maxWidth: 600, margin: 'auto', py: 4 }}>
+    <Box sx={{ maxWidth: 600, margin: 'auto' }}>
       <Paper sx={{ padding: 4 }}>
-        <Grid container spacing={2}>
+        <Grid container spacing={0.5}>
           <Grid item xs={12}>
-            <Typography variant="h5">Add Task</Typography>
+            <Typography variant="h6">Task Name</Typography>
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -65,7 +37,12 @@ export default function AddTask() {
               label="Task"
               variant="standard"
               value={task}
-              onChange={handleTaskChange}
+              onChange={(event) =>
+                dispatch({
+                  actionType: 'setTaskName',
+                  task: event.target.value,
+                })
+              }
             />
           </Grid>
           <Grid item xs={12}>
@@ -77,7 +54,12 @@ export default function AddTask() {
               label="Description"
               variant="standard"
               value={description}
-              onChange={handleDescriptionChange}
+              onChange={(event) =>
+                dispatch({
+                  actionType: 'setDescription',
+                  description: event.target.value,
+                })
+              }
             />
           </Grid>
           <Grid item xs={6}>
@@ -87,23 +69,61 @@ export default function AddTask() {
               type="date"
               label="Due Date"
               variant="standard"
-              value={dueDate}
-              onChange={handleDueDateChange}
+              value={getFormattedDate(dueDate)}
+              onChange={(event) =>
+                dispatch({
+                  actionType: 'setDueDate',
+                  dueDate: event.target.value,
+                })
+              }
             />
           </Grid>
           <Grid item xs={12}>
             <FormControl component="fieldset" sx={{ marginTop: 1 }}>
               <FormLabel>Status</FormLabel>
-              <RadioGroup row aria-label="status" name="status" value={status} onChange={handleStatusChange}>
-                <FormControlLabel value="in progress" control={<Radio />} label="In Progress" />
-                <FormControlLabel value="completed" control={<Radio />} label="Completed" />
+              <RadioGroup
+                row
+                aria-label="status"
+                name="status"
+                value={status}
+                onChange={(event) =>
+                  dispatch({
+                    actionType: 'setStatus',
+                    status: event.target.value,
+                  })
+                }
+              >
+                <FormControlLabel
+                  value="in progress"
+                  control={<Radio />}
+                  label="In Progress"
+                />
+                <FormControlLabel
+                  value="completed"
+                  control={<Radio />}
+                  label="Completed"
+                />
               </RadioGroup>
             </FormControl>
           </Grid>
           <Grid item xs={3}>
-            <FormControl required variant="standard" fullWidth sx={{ marginTop: 1 }}>
+            <FormControl
+              required
+              variant="standard"
+              fullWidth
+              sx={{ marginTop: 1 }}
+            >
               <FormLabel>Priority</FormLabel>
-              <Select value={priority} onChange={handlePriorityChange} label="Priority">
+              <Select
+                value={priority}
+                onChange={(event) =>
+                  dispatch({
+                    actionType: 'setPriority',
+                    priority: event.target.value,
+                  })
+                }
+                label="Priority"
+              >
                 <MenuItem value="low">Low</MenuItem>
                 <MenuItem value="medium">Medium</MenuItem>
                 <MenuItem value="high">High</MenuItem>
@@ -112,7 +132,12 @@ export default function AddTask() {
           </Grid>
           <Grid item xs={12}>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Button variant="contained" color="primary" onClick={handleSubmit}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => dispatch({actionType:"updateData",taskId:{id}}) }
+              >
+                
                 Update
               </Button>
             </Box>
