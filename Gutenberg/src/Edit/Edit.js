@@ -7,6 +7,7 @@ import Delete from '../Api/Delete';
 import { useEffect, useState } from 'react';
 import { useReducer } from 'react';
 import AddButton from '../components/AddButton/AddButton';
+import updateTask from '../Api/Update';
 
 const Edit = ({ isSelected }) => {
   const blockProps = useBlockProps({
@@ -25,7 +26,9 @@ const Edit = ({ isSelected }) => {
       status: '',
       priority: '',
     },
+    success: false,
     modalState: false,
+    buttonType:'',
     elements: [],
     lastFetched: Date.now(),
   };
@@ -46,14 +49,19 @@ const Edit = ({ isSelected }) => {
       dueDate,
       status,
       priority,
+      buttonType,
+      success
     } = action;
 
     if (actionType === 'setElements') {
       return { ...state, elements };
     }
+    if (actionType === 'setSuccess') {
+      return { ...state, success };
+    }
 
     if (actionType === 'setModalState') {
-      return { ...state, modalState };
+      return { ...state, modalState, buttonType };
     }
 
     if (actionType === 'setTaskName') {
@@ -105,8 +113,18 @@ const Edit = ({ isSelected }) => {
 
     if (actionType === 'updateData') {
       let { id } = taskId;
-      console.log(id);
-      return state;
+      let { taskState } = state;
+
+      updateTask(id, taskState).
+      then((res) => {
+        if( res === 'Task is updated' ){
+          return state;
+        } else {
+          return state;
+        }
+      });
+
+      return { ...state, lastFetched: Date.now() };
     }
 
     if (actionType === 'deleteData') {
@@ -145,7 +163,7 @@ const Edit = ({ isSelected }) => {
       TaskList().then((result) => {
         dispatch({ actionType: 'setElements', elements: result });
       });
-    }, 100);
+    }, 50);
   }, [lastFetched]);
 
   const handleDelete = (id) => {
@@ -153,11 +171,11 @@ const Edit = ({ isSelected }) => {
   };
 
   const { taskState } = fullstate;
-  console.log(taskState);
+  console.log(fullstate);
   return (
     <div {...blockProps}>
       <TableContext.Provider value={{ fullstate, dispatch, handleDelete }}>
-        {/* <AddButton /> */}
+        <AddButton />
         <Tables />
       </TableContext.Provider>
     </div>

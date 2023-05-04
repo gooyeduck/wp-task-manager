@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import TableContext from '../../Context/TableContext';
-import { useContext } from 'react';
 import {
   Box,
   Button,
@@ -15,17 +14,34 @@ import {
   Radio,
   Select,
   MenuItem,
+  Alert,
 } from '@mui/material';
 import { getFormattedDate } from '../../../library/stringUtils';
 
-export default function EditTask({updateId}) {
+export default function EditTask() {
   const { fullstate, dispatch } = useContext(TableContext);
-  const { taskState } = fullstate;
-  const { id,task, description, dueDate, priority, status } = taskState;
+  const { taskState, buttonType, success } = fullstate;
+  const { id, task, description, dueDate, priority, status } = taskState;
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  useEffect(() => {
+    if (success) {
+      setShowSuccess(true);
+      setTimeout(() => {
+        setShowSuccess(false);
+        dispatch({ actionType: 'setSuccess', success: false });
+      }, 2000);
+    }
+  }, [success]);
 
   return (
     <Box sx={{ maxWidth: 600, margin: 'auto' }}>
       <Paper sx={{ padding: 4 }}>
+        {showSuccess && (
+          <Alert severity="success" sx={{ marginBottom: 2 }}>
+            Operation successful
+          </Alert>
+        )}
         <Grid container spacing={0.5}>
           <Grid item xs={12}>
             <Typography variant="h6">Task Name</Typography>
@@ -132,14 +148,29 @@ export default function EditTask({updateId}) {
           </Grid>
           <Grid item xs={12}>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => dispatch({actionType:"updateData",taskId:{id}}) }
-              >
-                
-                Update
-              </Button>
+              {buttonType == 'Add' ? (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    dispatch({ actionType: 'submitData' });
+                    dispatch({ actionType: 'setSuccess', success: true });
+                  }}
+                >
+                  Add
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    dispatch({ actionType: 'updateData', taskId: { id } });
+                    dispatch({ actionType: 'setSuccess', success: true });
+                  }}
+                >
+                  Update
+                </Button>
+              )}
             </Box>
           </Grid>
         </Grid>
