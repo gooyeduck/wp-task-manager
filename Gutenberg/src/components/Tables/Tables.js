@@ -13,6 +13,8 @@ import { useContext } from 'react';
 import { titleCase, getFormattedDate } from '../../../library/stringUtils';
 import EditButton from '../EditButton/EditButton';
 
+//Table Component for Viewing the data in tabular form
+
 export default function Tables() {
   const { fullstate, handleDelete } = useContext(TableContext);
   const { elements } = fullstate;

@@ -7,6 +7,9 @@ class TMBlock {
 
     public function register_block() {
         if ( function_exists( 'register_block_type' ) ) {
+
+            //Enqueing the js and the styles file of the Gutenberg
+
             $asset_deps_admin = include GUTENBERG_PATH . 'build/index.asset.php';
             $asset_deps_front = include FRONTEND_PATH . 'build/js/task-manager.asset.php';
 
@@ -28,6 +31,7 @@ class TMBlock {
         }
     }
 
+    //Server rendering the React component to the frontend
     public function server_side_render() {
         return '<div id="task-manager-parent"></div>';
     }

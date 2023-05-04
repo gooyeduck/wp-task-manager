@@ -12,8 +12,6 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
-  Select,
-  MenuItem,
   Alert,
 } from '@mui/material';
 import { getFormattedDate } from '../../../library/stringUtils';
@@ -153,6 +151,7 @@ export default function EditTask() {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
+            {/* Type Check for setting the state for Addind or Updating the data inside the form */}
             <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
               {buttonType == 'Add' ? (
                 <Button

@@ -4,7 +4,7 @@ import TableContext from '../Context/TableContext';
 import TaskList from '../Api/TaskList';
 import Create from '../Api/Create';
 import Delete from '../Api/Delete';
-import { useEffect} from 'react';
+import { useEffect } from 'react';
 import { useReducer } from 'react';
 import AddButton from '../components/AddButton/AddButton';
 import updateTask from '../Api/Update';
@@ -18,6 +18,7 @@ const Edit = ({ isSelected }) => {
     },
   });
 
+  //Initial State of the Context
   const initialState = {
     taskState: {
       task: '',
@@ -28,7 +29,7 @@ const Edit = ({ isSelected }) => {
     },
     success: false,
     modalState: false,
-    buttonType:'',
+    buttonType: '',
     elements: [],
     lastFetched: Date.now(),
   };
@@ -50,55 +51,66 @@ const Edit = ({ isSelected }) => {
       status,
       priority,
       buttonType,
-      success
+      success,
     } = action;
-
+    
+    //action Type to set the table elements
     if (actionType === 'setElements') {
       return { ...state, elements };
     }
+
+    //action Type to set the success notification state
     if (actionType === 'setSuccess') {
       return { ...state, success };
     }
 
+    //action type for the modal window
     if (actionType === 'setModalState') {
       return { ...state, modalState, buttonType };
     }
 
+    //action type for setting the task name
     if (actionType === 'setTaskName') {
       var { taskState } = state;
       var taskState = { ...taskState, task };
       return { ...state, taskState };
     }
 
+    //action type for setting the description
     if (actionType === 'setDescription') {
       var { taskState } = state;
       var taskState = { ...taskState, description };
       return { ...state, taskState };
     }
 
+    //action type for setting the due date
     if (actionType === 'setDueDate') {
       var { taskState } = state;
       var taskState = { ...taskState, dueDate };
       return { ...state, taskState };
     }
 
+    //action type for setting the completion status
     if (actionType === 'setStatus') {
       var { taskState } = state;
       var taskState = { ...taskState, status };
       return { ...state, taskState };
     }
 
-    if (actionType === 'resetTaskState') {
-      let taskState = taskResetState;
-      return { ...state, taskState };
-    }
-
+    //action type for setteing the task priority
     if (actionType === 'setPriority') {
       var { taskState } = state;
       var taskState = { ...taskState, priority };
       return { ...state, taskState };
     }
 
+    //action type for reseting the task state to initail empty state
+    if (actionType === 'resetTaskState') {
+      let taskState = taskResetState;
+      return { ...state, taskState };
+    }
+
+    //action type for submitting the data to the database through Create API endpoint
     if (actionType === 'submitData') {
       let { taskState } = state;
       Create(taskState).then((res) => {
@@ -111,13 +123,13 @@ const Edit = ({ isSelected }) => {
       return { ...state, lastFetched: Date.now() };
     }
 
+    //action type for updating the data to the database through Create API endpoint
     if (actionType === 'updateData') {
       let { id } = taskId;
       let { taskState } = state;
 
-      updateTask(id, taskState).
-      then((res) => {
-        if( res === 'Task is updated' ){
+      updateTask(id, taskState).then((res) => {
+        if (res === 'Task is updated') {
           return state;
         } else {
           return state;
@@ -127,6 +139,7 @@ const Edit = ({ isSelected }) => {
       return { ...state, lastFetched: Date.now() };
     }
 
+    //action type for deleting the data to the database through Create API endpoint
     if (actionType === 'deleteData') {
       let { id } = taskId;
       Delete(id).then((res) => {
@@ -140,9 +153,10 @@ const Edit = ({ isSelected }) => {
       return { ...state, lastFetched: Date.now() };
     }
 
+    //action type for the task state update and updating the data
     if (actionType === 'updateTaskState') {
       let { elements } = state;
-      let { id,title, description, priority, due_date, completion_status } =
+      let { id, title, description, priority, due_date, completion_status } =
         elements.find((element) => element.id == taskIdUpdate);
       let taskState = {
         id: id,
@@ -166,6 +180,7 @@ const Edit = ({ isSelected }) => {
     }, 50);
   }, [lastFetched]);
 
+  //Click handler for the delete action
   const handleDelete = (id) => {
     dispatch({ actionType: 'deleteData', taskId: { id } });
   };

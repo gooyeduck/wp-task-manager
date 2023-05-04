@@ -45,6 +45,7 @@ const ModalCloseButton = styled(IconButton)(({theme}) => ({
   color: '#666',
 }));
 
+//Edit Button modal with the EditTask componet
 function EditButton({task_id}) {
   const {fullstate, dispatch} = useContext(TableContext);
   const {modalState} = fullstate;
@@ -77,7 +78,7 @@ function EditButton({task_id}) {
               }>
               <CloseIcon />
             </ModalCloseButton>
-            <EditTask />
+            <EditTask /> 
           </ModalContainer>
         </ModalBackground>
       )}

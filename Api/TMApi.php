@@ -8,7 +8,10 @@ class TMApi {
         add_action( 'rest_api_init', [$this, 'task_api'] );
     }
 
+    
     public function task_api() {
+
+        //Task Adding api endpoint
         register_rest_route(
             $this->namespace,
             '/tasks',
@@ -19,6 +22,7 @@ class TMApi {
             ]
         );
 
+        //Task getting api endpoint
         register_rest_route(
             $this->namespace,
             '/tasks-list',
@@ -29,6 +33,7 @@ class TMApi {
             ]
         );
 
+        //Task deletion api endpoint
         register_rest_route(
             $this->namespace,
             '/delete-task/(?P<id>\d+)',
@@ -39,6 +44,7 @@ class TMApi {
             ]
         );
 
+        //Task Updating api endpoint
         register_rest_route(
             $this->namespace,
             '/update-task/(?P<id>\d+)',
@@ -51,6 +57,7 @@ class TMApi {
         
     }
 
+    //task creation
     public function create_task_api( $request ) {
         global $wpdb;
 
@@ -99,6 +106,7 @@ class TMApi {
         }
     }
 
+    //task updating
     public function update_task( $request ) {
         global $wpdb;
     
@@ -152,7 +160,7 @@ class TMApi {
         }
     }
 
-    
+    //task deletiong
     public function delete_task( $request ) {
         global $wpdb;
 
@@ -170,7 +178,7 @@ class TMApi {
         }
     }
 
-
+    //task fetching
     public function show_tasks_list( $request ) {
         global $wpdb;
         return $wpdb->get_results( "SELECT * from {$wpdb->prefix}task_manager_tasks" );
