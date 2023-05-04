@@ -24384,6 +24384,8 @@ function AddButton() {
     modalState
   } = fullstate;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    variant: "contained",
+    color: "success",
     onClick: () => {
       dispatch({
         actionType: 'setModalState',
@@ -24732,7 +24734,7 @@ function EditTask() {
           actionType: 'setSuccess',
           success: false
         });
-      }, 2000);
+      }, 4000);
     }
   }, [success]);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -24865,6 +24867,16 @@ function EditTask() {
       dispatch({
         actionType: 'setSuccess',
         success: true
+      });
+      dispatch({
+        actionType: 'resetTaskState',
+        taskResetState: {
+          task: '',
+          description: '',
+          dueDate: '',
+          status: '',
+          priority: ''
+        }
       });
     }
   }, "Add") : (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material__WEBPACK_IMPORTED_MODULE_17__["default"], {

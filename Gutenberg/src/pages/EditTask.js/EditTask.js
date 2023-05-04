@@ -30,7 +30,7 @@ export default function EditTask() {
       setTimeout(() => {
         setShowSuccess(false);
         dispatch({ actionType: 'setSuccess', success: false });
-      }, 2000);
+      }, 4000);
     }
   }, [success]);
 
@@ -155,6 +155,16 @@ export default function EditTask() {
                   onClick={() => {
                     dispatch({ actionType: 'submitData' });
                     dispatch({ actionType: 'setSuccess', success: true });
+                    dispatch({
+                      actionType: 'resetTaskState',
+                      taskResetState: {
+                        task: '',
+                        description: '',
+                        dueDate: '',
+                        status: '',
+                        priority: '',
+                      },
+                    })
                   }}
                 >
                   Add

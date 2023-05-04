@@ -3,5 +3,6 @@
   "title": "Task Manager",
   "name": "src/task-manager",
   "category": "widgets",
-  "description": "Task Manager Block"
+  "description": "Task Manager Block",
+  "icon": "edit-page"
 }
