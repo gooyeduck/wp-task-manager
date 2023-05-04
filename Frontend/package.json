@@ -10,16 +10,28 @@
   "keywords": [],
   "license": "ISC",
   "devDependencies": {
-    "@wordpress/scripts": "^24.5.0"
+    "@wordpress/scripts": "26.3.0"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.8",
+    "@emotion/styled": "^11.10.8",
+    "@fortawesome/fontawesome-free": "^6.2.1",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.12.2",
+    "@mui/styled-engine-sc": "^5.12.0",
+    "@wordpress/api-fetch": "^6.29.0",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-content-loader": "^6.2.0",
     "react-dom": "^18.2.0",
     "react-draft-wysiwyg": "^1.15.0",
     "react-modal": "^3.16.1",
+    "react-router-dom": "^6.4.5",
+    "react-scripts": "5.0.1",
     "react-select": "^5.6.1",
-    "react-toastify": "^9.1.1"
+    "react-toastify": "^9.1.1",
+    "styled-components": "^5.3.10",
+    "web-vitals": "^2.1.4"
   }
 }
