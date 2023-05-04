@@ -79,11 +79,12 @@ export default function EditTask() {
             />
           </Grid>
           <Grid item xs={6}>
+          <FormLabel sx={{ marginTop: 1 }}>Due Date</FormLabel>
             <TextField
               required
               fullWidth
               type="date"
-              label="Due Date"
+              label=""
               variant="standard"
               value={getFormattedDate(dueDate)}
               onChange={(event) =>
@@ -122,15 +123,13 @@ export default function EditTask() {
               </RadioGroup>
             </FormControl>
           </Grid>
-          <Grid item xs={3}>
-            <FormControl
-              required
-              variant="standard"
-              fullWidth
-              sx={{ marginTop: 1 }}
-            >
+          <Grid item xs={12}>
+            <FormControl component="fieldset" sx={{ marginTop: 1 }}>
               <FormLabel>Priority</FormLabel>
-              <Select
+              <RadioGroup
+                row
+                aria-label="priority"
+                name="priority"
                 value={priority}
                 onChange={(event) =>
                   dispatch({
@@ -138,12 +137,19 @@ export default function EditTask() {
                     priority: event.target.value,
                   })
                 }
-                label="Priority"
               >
-                <MenuItem value="low">Low</MenuItem>
-                <MenuItem value="medium">Medium</MenuItem>
-                <MenuItem value="high">High</MenuItem>
-              </Select>
+                <FormControlLabel value="low" control={<Radio />} label="Low" />
+                <FormControlLabel
+                  value="medium"
+                  control={<Radio />}
+                  label="Medium"
+                />
+                <FormControlLabel
+                  value="high"
+                  control={<Radio />}
+                  label="High"
+                />
+              </RadioGroup>
             </FormControl>
           </Grid>
           <Grid item xs={12}>
@@ -164,7 +170,7 @@ export default function EditTask() {
                         status: '',
                         priority: '',
                       },
-                    })
+                    });
                   }}
                 >
                   Add
