@@ -16,12 +16,12 @@ import {
 } from '@mui/material';
 import { getFormattedDate } from '../../../library/stringUtils';
 
-export default function EditTask() {
+export default function TaskForm() {
   const { fullstate, dispatch } = useContext(TableContext);
   const { taskState, buttonType, success } = fullstate;
   const { id, task, description, dueDate, priority, status } = taskState;
   const [showSuccess, setShowSuccess] = useState(false);
-
+  
   useEffect(() => {
     if (success) {
       setShowSuccess(true);

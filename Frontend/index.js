@@ -10,6 +10,7 @@ import { useEffect} from 'react';
 import { useReducer } from 'react';
 import AddButton from '../Gutenberg/src/components/AddButton/AddButton';
 import updateTask from '../Gutenberg/src/Api/Update';
+import TaskModal from '../Gutenberg/src/pages/TaskModal/TaskModal';
 
 const FrontEnd = () => {
   const initialState = {
@@ -168,6 +169,7 @@ const FrontEnd = () => {
     <div id='task-manager-parent'>
       <TableContext.Provider value={{ fullstate, dispatch, handleDelete }}>
         <AddButton />
+        <TaskModal/>
         <Tables />
       </TableContext.Provider>
     </div>

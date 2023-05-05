@@ -23710,6 +23710,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _components_AddButton_AddButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/AddButton/AddButton */ "./src/components/AddButton/AddButton.js");
 /* harmony import */ var _Api_Update__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../Api/Update */ "./src/Api/Update.js");
+/* harmony import */ var _pages_TaskModal_TaskModal__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../pages/TaskModal/TaskModal */ "./src/pages/TaskModal/TaskModal.js");
+
 
 
 
@@ -23732,6 +23734,8 @@ const Edit = _ref => {
       padding: '0 !important;'
     }
   });
+
+  //Initial State of the Context
   const initialState = {
     taskState: {
       task: '',
@@ -23766,18 +23770,24 @@ const Edit = _ref => {
       buttonType,
       success
     } = action;
+
+    //action Type to set the table elements
     if (actionType === 'setElements') {
       return {
         ...state,
         elements
       };
     }
+
+    //action Type to set the success notification state
     if (actionType === 'setSuccess') {
       return {
         ...state,
         success
       };
     }
+
+    //action type for the modal window
     if (actionType === 'setModalState') {
       return {
         ...state,
@@ -23785,6 +23795,8 @@ const Edit = _ref => {
         buttonType
       };
     }
+
+    //action type for setting the task name
     if (actionType === 'setTaskName') {
       var {
         taskState
@@ -23798,6 +23810,8 @@ const Edit = _ref => {
         taskState
       };
     }
+
+    //action type for setting the description
     if (actionType === 'setDescription') {
       var {
         taskState
@@ -23811,6 +23825,8 @@ const Edit = _ref => {
         taskState
       };
     }
+
+    //action type for setting the due date
     if (actionType === 'setDueDate') {
       var {
         taskState
@@ -23824,6 +23840,8 @@ const Edit = _ref => {
         taskState
       };
     }
+
+    //action type for setting the completion status
     if (actionType === 'setStatus') {
       var {
         taskState
@@ -23837,13 +23855,8 @@ const Edit = _ref => {
         taskState
       };
     }
-    if (actionType === 'resetTaskState') {
-      let taskState = taskResetState;
-      return {
-        ...state,
-        taskState
-      };
-    }
+
+    //action type for setteing the task priority
     if (actionType === 'setPriority') {
       var {
         taskState
@@ -23857,6 +23870,17 @@ const Edit = _ref => {
         taskState
       };
     }
+
+    //action type for reseting the task state to initail empty state
+    if (actionType === 'resetTaskState') {
+      let taskState = taskResetState;
+      return {
+        ...state,
+        taskState
+      };
+    }
+
+    //action type for submitting the data to the database through Create API endpoint
     if (actionType === 'submitData') {
       let {
         taskState
@@ -23873,6 +23897,8 @@ const Edit = _ref => {
         lastFetched: Date.now()
       };
     }
+
+    //action type for updating the data to the database through Create API endpoint
     if (actionType === 'updateData') {
       let {
         id
@@ -23892,6 +23918,8 @@ const Edit = _ref => {
         lastFetched: Date.now()
       };
     }
+
+    //action type for deleting the data to the database through Create API endpoint
     if (actionType === 'deleteData') {
       let {
         id
@@ -23908,6 +23936,8 @@ const Edit = _ref => {
         lastFetched: Date.now()
       };
     }
+
+    //action type for the task state update and updating the data
     if (actionType === 'updateTaskState') {
       let {
         elements
@@ -23945,6 +23975,8 @@ const Edit = _ref => {
       });
     }, 50);
   }, [lastFetched]);
+
+  //Click handler for the delete action
   const handleDelete = id => {
     dispatch({
       actionType: 'deleteData',
@@ -23954,16 +23986,17 @@ const Edit = _ref => {
     });
   };
   const {
+    modalState,
     taskState
   } = fullstate;
-  console.log(fullstate);
+  console.log(modalState);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Context_TableContext__WEBPACK_IMPORTED_MODULE_3__["default"].Provider, {
     value: {
       fullstate,
       dispatch,
       handleDelete
     }
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_AddButton_AddButton__WEBPACK_IMPORTED_MODULE_8__["default"], null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Tables_Tables__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_AddButton_AddButton__WEBPACK_IMPORTED_MODULE_8__["default"], null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_TaskModal_TaskModal__WEBPACK_IMPORTED_MODULE_10__["default"], null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Tables_Tables__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
 };
 /* harmony default export */ __webpack_exports__["default"] = (Edit);
 
@@ -24000,8 +24033,6 @@ function AddButton() {
     modalState
   } = fullstate;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    variant: "contained",
-    color: "success",
     onClick: () => {
       dispatch({
         actionType: 'setModalState',
@@ -24036,14 +24067,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _mui_material_styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material/styles */ "./node_modules/@mui/material/styles/styled.js");
-/* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/IconButton/IconButton.js");
-/* harmony import */ var _mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/icons-material/Edit */ "./node_modules/@mui/icons-material/Edit.js");
-/* harmony import */ var _mui_icons_material_Close__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/icons-material/Close */ "./node_modules/@mui/icons-material/Close.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/IconButton/IconButton.js");
+/* harmony import */ var _mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/icons-material/Edit */ "./node_modules/@mui/icons-material/Edit.js");
 /* harmony import */ var _Context_TableContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Context/TableContext */ "./src/Context/TableContext.js");
-/* harmony import */ var _pages_EditTask_js_EditTask__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../pages/EditTask.js/EditTask */ "./src/pages/EditTask.js/EditTask.js");
 
 
 
@@ -24052,65 +24080,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-const ModalBackground = (0,_mui_material_styles__WEBPACK_IMPORTED_MODULE_4__["default"])('div')(_ref => {
-  let {
-    theme
-  } = _ref;
-  return {
-    position: 'fixed',
-    top: '0',
-    left: '0',
-    bottom: '0',
-    right: '0',
-    zIndex: '9999',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-  };
-});
-const ModalContainer = (0,_mui_material_styles__WEBPACK_IMPORTED_MODULE_4__["default"])('div')(_ref2 => {
-  let {
-    theme
-  } = _ref2;
-  return {
-    width: 'fit-content',
-    maxWidth: '100%',
-    backgroundColor: '#fff',
-    boxShadow: '0 0 5px 0 rgba(0, 0, 0, 0.3)',
-    borderRadius: '5px',
-    padding: '20px',
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column'
-  };
-});
-const ModalTitle = (0,_mui_material_styles__WEBPACK_IMPORTED_MODULE_4__["default"])('div')(_ref3 => {
-  let {
-    theme
-  } = _ref3;
-  return {
-    fontSize: '20px',
-    fontWeight: 'bold',
-    marginBottom: '20px'
-  };
-});
-const ModalCloseButton = (0,_mui_material_styles__WEBPACK_IMPORTED_MODULE_4__["default"])(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_5__["default"])(_ref4 => {
-  let {
-    theme
-  } = _ref4;
-  return {
-    position: 'absolute',
-    top: '10px',
-    right: '10px',
-    color: '#666'
-  };
-});
-function EditButton(_ref5) {
+//Edit Button modal with the EditTask componet
+function EditButton(_ref) {
   let {
     task_id
-  } = _ref5;
+  } = _ref;
   const {
     fullstate,
     dispatch
@@ -24118,7 +24092,7 @@ function EditButton(_ref5) {
   const {
     modalState
   } = fullstate;
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
     "aria-label": "edit",
     onClick: () => {
       dispatch({
@@ -24131,17 +24105,11 @@ function EditButton(_ref5) {
         taskIdUpdate: task_id
       });
     }
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_6__["default"], null)), modalState && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ModalBackground, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ModalContainer, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ModalTitle, null, "Task"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ModalCloseButton, {
-    "aria-label": "close",
-    onClick: () => dispatch({
-      actionType: 'setModalState',
-      modalState: false
-    })
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_Close__WEBPACK_IMPORTED_MODULE_7__["default"], null)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_EditTask_js_EditTask__WEBPACK_IMPORTED_MODULE_3__["default"], null))));
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_Edit__WEBPACK_IMPORTED_MODULE_4__["default"], null)));
 }
 /* harmony default export */ __webpack_exports__["default"] = (EditButton);
 EditButton.propTypes = {
-  task_id: (prop_types__WEBPACK_IMPORTED_MODULE_8___default().number)
+  task_id: (prop_types__WEBPACK_IMPORTED_MODULE_5___default().number)
 };
 
 /***/ }),
@@ -24187,6 +24155,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+//Table Component for Viewing the data in tabular form
 
 function Tables() {
   const {
@@ -24286,16 +24257,16 @@ function Tables() {
 
 /***/ }),
 
-/***/ "./src/pages/EditTask.js/EditTask.js":
-/*!*******************************************!*\
-  !*** ./src/pages/EditTask.js/EditTask.js ***!
-  \*******************************************/
+/***/ "./src/pages/TaskForm/TaskForm.js":
+/*!****************************************!*\
+  !*** ./src/pages/TaskForm/TaskForm.js ***!
+  \****************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ EditTask; }
+/* harmony export */   "default": function() { return /* binding */ TaskForm; }
 /* harmony export */ });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
@@ -24320,7 +24291,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function EditTask() {
+function TaskForm() {
   const {
     fullstate,
     dispatch
@@ -24519,6 +24490,109 @@ function EditTask() {
       });
     }
   }, "Update"))))));
+}
+
+/***/ }),
+
+/***/ "./src/pages/TaskModal/TaskModal.js":
+/*!******************************************!*\
+  !*** ./src/pages/TaskModal/TaskModal.js ***!
+  \******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ TaskModal; }
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _mui_material_styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material/styles */ "./node_modules/@mui/material/styles/styled.js");
+/* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/IconButton/IconButton.js");
+/* harmony import */ var _mui_icons_material_Close__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/icons-material/Close */ "./node_modules/@mui/icons-material/Close.js");
+/* harmony import */ var _Context_TableContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Context/TableContext */ "./src/Context/TableContext.js");
+/* harmony import */ var _TaskForm_TaskForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../TaskForm/TaskForm */ "./src/pages/TaskForm/TaskForm.js");
+
+
+
+
+
+
+
+
+
+const ModalBackground = (0,_mui_material_styles__WEBPACK_IMPORTED_MODULE_4__["default"])('div')(_ref => {
+  let {
+    theme
+  } = _ref;
+  return {
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    bottom: '0',
+    right: '0',
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    zIndex: '9999',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  };
+});
+const ModalContainer = (0,_mui_material_styles__WEBPACK_IMPORTED_MODULE_4__["default"])('div')(_ref2 => {
+  let {
+    theme
+  } = _ref2;
+  return {
+    width: 'fit-content',
+    maxWidth: '100%',
+    backgroundColor: '#fff',
+    boxShadow: '0 0 5px 0 rgba(0, 0, 0, 0.3)',
+    borderRadius: '5px',
+    padding: '20px',
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column'
+  };
+});
+const ModalTitle = (0,_mui_material_styles__WEBPACK_IMPORTED_MODULE_4__["default"])('div')(_ref3 => {
+  let {
+    theme
+  } = _ref3;
+  return {
+    fontSize: '30px',
+    fontWeight: 'bold',
+    marginBottom: '20px'
+  };
+});
+const ModalCloseButton = (0,_mui_material_styles__WEBPACK_IMPORTED_MODULE_4__["default"])(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_5__["default"])(_ref4 => {
+  let {
+    theme
+  } = _ref4;
+  return {
+    position: 'absolute',
+    top: '10px',
+    right: '10px',
+    color: '#666'
+  };
+});
+function TaskModal() {
+  const {
+    fullstate,
+    dispatch
+  } = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_Context_TableContext__WEBPACK_IMPORTED_MODULE_2__["default"]);
+  const {
+    modalState,
+    buttonType
+  } = fullstate;
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, modalState && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ModalBackground, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ModalContainer, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ModalTitle, null, buttonType === 'Add' ? 'Add Task' : 'Update Task'), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(ModalCloseButton, {
+    "aria-label": "close",
+    onClick: () => dispatch({
+      actionType: 'setModalState',
+      modalState: false
+    })
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_mui_icons_material_Close__WEBPACK_IMPORTED_MODULE_6__["default"], null)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_TaskForm_TaskForm__WEBPACK_IMPORTED_MODULE_3__["default"], null))));
 }
 
 /***/ }),

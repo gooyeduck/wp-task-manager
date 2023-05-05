@@ -7,12 +7,9 @@ export default function AddButton() {
   const { fullstate, dispatch } = useContext(TableContext);
   const { modalState } = fullstate;
 
-  //Button for Adding Task and Opening the Edit task modal form
   return (
     <div>
       <Button
-        variant="contained"
-        color="success"
         onClick={() => {
           dispatch({
             actionType: 'setModalState',

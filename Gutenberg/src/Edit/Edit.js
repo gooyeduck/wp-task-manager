@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { useReducer } from 'react';
 import AddButton from '../components/AddButton/AddButton';
 import updateTask from '../Api/Update';
+import TaskModal from '../pages/TaskModal/TaskModal';
 
 const Edit = ({ isSelected }) => {
   const blockProps = useBlockProps({
@@ -185,12 +186,14 @@ const Edit = ({ isSelected }) => {
     dispatch({ actionType: 'deleteData', taskId: { id } });
   };
 
-  const { taskState } = fullstate;
-  console.log(fullstate);
+  const { modalState,taskState} = fullstate;
+
+  console.log(modalState);
   return (
     <div {...blockProps}>
       <TableContext.Provider value={{ fullstate, dispatch, handleDelete }}>
         <AddButton />
+        <TaskModal/>
         <Tables />
       </TableContext.Provider>
     </div>
