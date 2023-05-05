@@ -10,6 +10,8 @@ export default function AddButton() {
   return (
     <div>
       <Button
+        variant="contained"
+        color="success"
         onClick={() => {
           dispatch({
             actionType: 'setModalState',
